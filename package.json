@@ -1,0 +1,22 @@
+{
+  "name": "lib_managment_backend_api",
+  "version": "1.0.0",
+  "description": "Backend Api for managing the routes of libaray day to day requiremnt",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "author": "Dharansh Neema",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.0",
+    "swagger-ui-express": "^4.6.3",
+    "yamljs": "^0.3.0",
+    "ymal": "^0.1.0"
+  }
+}
