@@ -48,6 +48,6 @@ const userSchema = new mongoose.Schema({
       ref: "book",
     },
   },
-  forgotPasswordToken: String,
   forgotPasswordExpiry: String,
+  forgotPasswordToken: String,
 });
