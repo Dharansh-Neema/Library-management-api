@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 const validator = require("validator");
 const userSchema = new mongoose.Schema({
   name: {
@@ -26,7 +27,6 @@ const userSchema = new mongoose.Schema({
   image: {
     id: {
       type: String,
-      unique: true,
       required: true,
     },
     secure_url: {
@@ -42,12 +42,20 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  issuedBook: {
-    info: {
-      id: mongoose.Schema.Types.ObjectId,
-      ref: "book",
-    },
-  },
+  //   issuedBook: {
+  //     info: {
+  //       id: mongoose.Schema.Types.ObjectId,
+  //       ref: "book",
+  //     },
+  //   },
   forgotPasswordExpiry: String,
   forgotPasswordToken: String,
 });
+userSchema.pre("save", async function (next) {
+  //If the password is not being modified we don't encrypt it again
+  if (!this.isModified("password")) return next();
+  //Strenthing the password by 10 rounds of salt
+
+  this.password = await bcrypt.hash(this.password, 10);
+});
+module.exports = mongoose.model("user", userSchema);

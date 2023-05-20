@@ -9,6 +9,23 @@ require("dotenv").config();
 const connectWithDB = require("./config/db");
 connectWithDB();
 
+//Importing file and cookie middleware
+const fileUpload = require("express-fileupload");
+app.use(fileUpload({ useTempFiles: true, tempFileDir: "/tmp/" }));
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+//Cloudinary config
+const cloudinary = require("cloudinary");
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
 //test route
 app.get("/api/test", (req, res) => {
   res.send("Testing lib");
@@ -16,6 +33,7 @@ app.get("/api/test", (req, res) => {
 
 //User routes
 const userRoute = require("./routes/user");
+const { json } = require("body-parser");
 app.use("/api/", userRoute);
 //Declaration of PORT
 const PORT = 8080;
