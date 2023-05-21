@@ -8,7 +8,7 @@
 - [] search
 - [] return
 - [] delete issue book
-- []isLogined Route
+- [x]isLoggedIn Route
 
 ### Admin:
 
@@ -20,6 +20,5 @@
 
 ### Book:
 
-- [] show all books
-- [] search any book
+- [x] show all books
 - [x] create a dataBase modle for book

@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Book = require("../models/book");
 const cookieToken = require("../utils/cookieToken");
 const bcrypt = require("bcrypt");
 //Importing cloudinary
@@ -9,6 +10,7 @@ exports.testUser = async (req, res, next) => {
     res.send("Testing user controllers");
   } catch (error) {
     console.log(error);
+    res.status(401).json({ message: "Error Occurred", success: false, error });
   }
 };
 //Sign up route
@@ -36,7 +38,8 @@ exports.signup = async (req, res, next) => {
       cookieToken(user, res); //creting cookie for user id
     }
   } catch (error) {
-    console.log("Some Error occured", error);
+    console.log(error);
+    res.status(401).json({ message: "Error Occurred", success: false, error });
   }
 };
 
@@ -60,5 +63,27 @@ exports.login = async (req, res, next) => {
     cookieToken(user, res);
   } catch (error) {
     console.log(error);
+    res.status(401).json({ message: "Error Occurred", success: false, error });
+  }
+};
+
+//Show all Books
+exports.allBooks = async (req, res, next) => {
+  try {
+    const book = await Book.find();
+    const bookName = [];
+    // const authorName = [];
+    book.forEach((i) => {
+      bookName.push(i.name);
+      // authorName.push(i.author);
+    });
+
+    res.status(200).json({ bookName });
+  } catch (error) {
+    console.log(error);
+    res.status(501).json({
+      success: false,
+      message: "Internal server error",
+    });
   }
 };
