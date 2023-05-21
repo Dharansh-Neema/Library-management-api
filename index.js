@@ -14,7 +14,7 @@ const fileUpload = require("express-fileupload");
 app.use(fileUpload({ useTempFiles: true, tempFileDir: "/tmp/" }));
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
-
+const { json } = require("body-parser");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -33,8 +33,11 @@ app.get("/api/test", (req, res) => {
 
 //User routes
 const userRoute = require("./routes/user");
-const { json } = require("body-parser");
 app.use("/api/", userRoute);
+
+//Admin routes
+const adminRoute = require("./routes/admin");
+app.use("/api/", adminRoute);
 //Declaration of PORT
 const PORT = 8080;
 app.listen(PORT, () => {

@@ -42,12 +42,12 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  //   issuedBook: {
-  //     info: {
-  //       id: mongoose.Schema.Types.ObjectId,
-  //       ref: "book",
-  //     },
-  //   },
+  issuedBook: {
+    id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "book",
+    },
+  },
   forgotPasswordExpiry: String,
   forgotPasswordToken: String,
 });

@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const cookieToken = require("../utils/cookieToken");
+const bcrypt = require("bcrypt");
 //Importing cloudinary
 const cloudinary = require("cloudinary").v2;
 //test route
@@ -36,5 +37,28 @@ exports.signup = async (req, res, next) => {
     }
   } catch (error) {
     console.log("Some Error occured", error);
+  }
+};
+
+//Login Route
+exports.login = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      throw new Error("Email or password is required");
+    }
+    const user = await User.findOne({ email }).select("+password");
+    if (!user) {
+      throw new Error("Email or password is incorrect ");
+    }
+    const storedPass = user.password;
+    const isCorrect = await bcrypt.compare(password, storedPass);
+
+    if (!isCorrect) {
+      throw new Error("Email or password is incorrect ");
+    }
+    cookieToken(user, res);
+  } catch (error) {
+    console.log(error);
   }
 };
