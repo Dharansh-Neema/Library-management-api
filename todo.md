@@ -2,7 +2,7 @@
 
 - [x] signup
 - [x] Login
-- [] Book issue
+- [x] Book issue
 - [] forgot password
 - [] update password
 - [] search

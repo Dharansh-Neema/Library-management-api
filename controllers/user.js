@@ -87,3 +87,43 @@ exports.allBooks = async (req, res, next) => {
     });
   }
 };
+
+exports.issueBook = async (req, res, next) => {
+  try {
+    const { bookName } = req.body;
+    const book = await Book.findOne({ name: bookName });
+    if (!book) {
+      throw new Error("Book isn't available,Please enter Valid Book name");
+    }
+    if (book.stock <= 0) {
+      res
+        .status(401)
+        .json({ message: "Book isn't available in the stock", stock: 0 });
+    }
+    //Derving the user who requested for issuing the Book
+    const user = await User.findById(req.user._id.valueOf());
+    console.log(book, user);
+    user.issuedBook.id = book.id;
+    book.stock = book.stock - 1;
+    //Setting the issue date
+    book.issueDate = new Date(Date.now());
+    //Setting the return date, 7 days from now
+    book.returnDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    //Saving the user so that we know who have issued it.
+    book.user_id.id = user._id;
+    //Saving the changes to dataBase
+    book
+      .save()
+      .then(() => {
+        console.log("Successfully saved to db");
+      })
+      .catch((e) => console.log("Error occured before saving to DB", e));
+    res.status(200).json({
+      success: true,
+      message: "Book has been issued succesfully",
+      book,
+    });
+  } catch (error) {
+    console.log("Error Occured while issuing the book", error);
+  }
+};
