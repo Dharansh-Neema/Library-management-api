@@ -77,3 +77,26 @@ exports.deleteBook = async (req, res, next) => {
     });
   }
 };
+
+//To see all user and their Info
+exports.seeAllUser = async (req, res, next) => {
+  try {
+    if (req.user.role != "admin")
+      throw new Error("Admin accessible route only");
+    let { id, name } = req.user;
+    id = id.valueOf();
+    const user = await User.find();
+    res.status(200).json({
+      success: true,
+      adminId: id,
+      message: `Hello ${name}, here is the required information`,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(401).json({
+      success: false,
+      message: "Something went wrong",
+    });
+  }
+};

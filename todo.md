@@ -17,6 +17,7 @@
 - [x] delete book
 - [] see all user
 - [] search books
+- [] search user
 
 ### Book:
 
