@@ -13,8 +13,8 @@
 ### Admin:
 
 - [x] add Books
-- [] update books
-- [] delete book
+- [x] update books
+- [x] delete book
 - [] see all user
 - [] search books
 
