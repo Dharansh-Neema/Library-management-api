@@ -8,7 +8,7 @@
 - [] search
 - [] return
 - [] delete issue book
-- [x]isLoggedIn Route
+- [x]isLoggedIn middleware
 
 ### Admin:
 
