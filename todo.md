@@ -15,7 +15,7 @@
 - [x] add Books
 - [x] update books
 - [x] delete book
-- [] see all user
+- [x] see all user
 - [] search books
 - [] search user
 
