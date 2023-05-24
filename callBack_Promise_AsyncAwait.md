@@ -79,6 +79,7 @@ Async/await helps us to write asynchronous code looks like synchronous code.
 It was recently introduced (2017) and before this developers uses callback and promises to handle asynchronous code.
 
 > • **_async_** - **It ensures that the function returns a promise, and wraps non-promises in it.**
+
 > • **_await_** - **It makes JavaScript wait until that promise settles and returns its result.**
 
 By using async/await, developers can write asynchronous code that is easier to read, write, and debug.
